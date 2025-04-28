@@ -7,8 +7,288 @@
 </head>
 
 <body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            font-family: 'ZCOOL QingKe HuangYou', cursive;
+            text-align: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(#ffcce6 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            color: #ff66b3;
+            font-size: 3em;
+            text-shadow: 3px 3px 0 #ffccf2;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        .birthday-text {
+            font-size: 1.5em;
+            color: #ff85c0;
+            margin-bottom: 30px;
+        }
+        
+        .chiikawa-character {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-image: url('https://i.imgur.com/JQJQJQJ.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .message {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+            border: 3px dashed #ffb6c1;
+            position: relative;
+        }
+        
+        .message:before {
+            content: "✨";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            font-size: 30px;
+        }
+        
+        .message:after {
+            content: "🎀";
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            font-size: 30px;
+        }
+        
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: #ff66b3;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float-up 10s linear infinite;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 25px;
+            width: 2px;
+            height: 30px;
+            background-color: #999;
+        }
+        
+        .balloon:nth-child(2n) {
+            background-color: #66b3ff;
+            left: 20%;
+            animation-delay: 2s;
+        }
+        
+        .balloon:nth-child(3n) {
+            background-color: #b3ff66;
+            left: 40%;
+            animation-delay: 4s;
+        }
+        
+        .balloon:nth-child(4n) {
+            background-color: #ffcc66;
+            left: 60%;
+            animation-delay: 6s;
+        }
+        
+        .balloon:nth-child(5n) {
+            background-color: #cc66ff;
+            left: 80%;
+            animation-delay: 8s;
+        }
+        
+        .gif-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .gif-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffb6c1;
+            transition: transform 0.3s;
+        }
+        
+        .gif-container img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #ff85c0;
+            font-size: 1.2em;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .usagi {
+            font-size: 2em;
+            animation: spin 5s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .cake {
+            font-size: 3em;
+            display: inline-block;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.7;
+            animation: confetti-fall 5s linear infinite;
+            z-index: 1000;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="balloons">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+    </div>
+    
+    <div class="container">
+        <h1>咏烨生日快乐！</h1>
+        <div class="birthday-text">
+            <span class="cake">🎂</span> 祝世界上最可爱的咏烨生日快乐！ <span class="cake">🎂</span>
+        </div>
+        
+        <div class="chiikawa-character">
+            <!-- 这里可以放乌萨奇的图片 -->
+            <img src="https://i.imgur.com/placeholder.png" alt="乌萨奇" style="width:100%;">
+        </div>
+        
+        <div class="message">
+            <p>亲爱的咏烨：</p>
+            <p>今天是属于你的特别日子！✨</p>
+            <p>愿你的生日充满欢笑、甜蜜和Chiikawa的可爱能量！</p>
+            <p>像乌萨奇一样永远保持纯真快乐的心～</p>
+            <p>新的一岁也要继续闪闪发光！</p>
+            <p>祝你所有的愿望都能实现！</p>
+            <p class="usagi">🎀 生日快乐 🎀</p>
+        </div>
+        
+        <div class="gif-container">
+            <!-- 这里可以放一些Chiikawa和乌萨奇的GIF -->
+            <img src="https://media.giphy.com/media/example1.gif" alt="Chiikawa可爱">
+            <img src="https://media.giphy.com/media/example2.gif" alt="乌萨奇跳舞">
+            <img src="https://media.giphy.com/media/example3.gif" alt="生日庆祝">
+            <img src="https://media.giphy.com/media/example4.gif" alt="Chiikawa派对">
+        </div>
+        
+        <div class="footer">
+            <p>特别为你制作的生日祝福网页 ❤</p>
+            <p>希望你喜欢这份小惊喜！</p>
+        </div>
+    </div>
+    
+    <script>
+        // 创建五彩纸屑效果
+        function createConfetti() {
+            const colors = ['#ff66b3', '#66b3ff', '#b3ff66', '#ffcc66', '#cc66ff'];
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        // 每隔一段时间创建新的五彩纸屑
+        setInterval(createConfetti, 300);
+        
+        // 点击页面任意处也会产生五彩纸屑
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 100);
+            }
+        });
+    </script>
 
-    小椰子(＾Ｕ＾)ノ~ＹＯ
+
     
 </body>
 </html>

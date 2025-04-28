@@ -7,9 +7,7 @@
 </head>
 
 <body>
-
     
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Comic+Neue:wght@700&display=swap');
         
@@ -176,9 +174,24 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            font-size: 24px;
+            font-size: 36px;
             cursor: pointer;
             z-index: 1000;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        #music-control.playing {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* 新增温情表达模块样式 */
@@ -212,7 +225,7 @@
     <img src="usagi-float3.png" class="floating-usagi">
 
     <!-- 新增音乐控制图标 -->
-    <i id="music-control" class="fa-solid fa-volume-high"></i>
+    <span id="music-control">♪</span>
     <audio id="background-music" loop>
         <source src="your-music-file.mp3" type="audio/mpeg">
         你的浏览器不支持音频播放。
@@ -324,19 +337,14 @@
             musicControl.addEventListener('click', () => {
                 if (backgroundMusic.paused) {
                     backgroundMusic.play();
-                    musicControl.classList.remove('fa-volume-xmark');
-                    musicControl.classList.add('fa-volume-high');
+                    musicControl.classList.add('playing');
                 } else {
                     backgroundMusic.pause();
-                    musicControl.classList.remove('fa-volume-high');
-                    musicControl.classList.add('fa-volume-xmark');
+                    musicControl.classList.remove('playing');
                 }
             });
         });
     </script>
-
-
-
     
 </body>
 </html>

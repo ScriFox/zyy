@@ -7,6 +7,8 @@
 </head>
 
 <body>
+
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap');
         
@@ -19,6 +21,7 @@
             overflow-x: hidden;
             background-image: radial-gradient(#ffcce6 1px, transparent 1px);
             background-size: 20px 20px;
+            transition: background-color 1s;
         }
         
         .container {
@@ -213,6 +216,172 @@
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+        
+        /* 新增的敏感心灵小版块样式 */
+        .sensitive-heart {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(200, 150, 255, 0.3);
+            border: 3px dotted #d4a5ff;
+            position: relative;
+            text-align: left;
+            transition: all 0.5s ease;
+        }
+        
+        .sensitive-heart:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(200, 150, 255, 0.4);
+        }
+        
+        .sensitive-heart h2 {
+            color: #b388ff;
+            font-family: 'Ma Shan Zheng', cursive;
+            margin-top: 0;
+            border-bottom: 2px dashed #d4a5ff;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sensitive-heart h2::before {
+            content: "💜";
+            margin-right: 10px;
+        }
+        
+        .sensitive-heart p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .sensitive-heart .heart-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        
+        /* 音乐播放按钮 */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff66b3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            background-color: #ff85c0;
+        }
+        
+        .music-btn.playing {
+            animation: pulse 1s infinite;
+        }
+        
+        /* 夜间模式切换 */
+        .night-mode {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #4a4a4a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .night-mode:hover {
+            transform: scale(1.1);
+        }
+        
+        body.night {
+            background-color: #2a2a3a;
+            color: #e0e0e0;
+        }
+        
+        body.night .message,
+        body.night .sensitive-heart {
+            background-color: rgba(60, 60, 80, 0.9);
+            color: #e0e0e0;
+        }
+        
+        body.night .sensitive-heart {
+            border-color: #7a5fff;
+        }
+        
+        body.night .sensitive-heart h2 {
+            color: #a388ff;
+        }
+        
+        body.night h1 {
+            color: #ff85c0;
+            text-shadow: 3px 3px 0 #6a3d8a;
+        }
+        
+        body.night .birthday-text,
+        body.night .footer {
+            color: #d4a5ff;
+        }
+        
+        /* 隐藏的祝福 */
+        .hidden-message {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 0 20px;
+            margin: 10px 0;
+        }
+        
+        .hidden-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .show-message-btn {
+            background-color: #d4a5ff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .show-message-btn:hover {
+            background-color: #b388ff;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -223,6 +392,14 @@
         <div class="balloon"></div>
         <div class="balloon"></div>
     </div>
+    
+    <button class="music-btn" id="musicBtn">♪</button>
+    <button class="night-mode" id="nightMode">🌙</button>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- 你可以替换成你喜欢的音乐链接 -->
+    </audio>
     
     <div class="container">
         <h1>咏烨生日快乐！</h1>
@@ -241,8 +418,29 @@
             <p>愿你的生日充满欢笑、甜蜜和Chiikawa的可爱能量！</p>
             <p>像乌萨奇一样永远保持纯真快乐的心～</p>
             <p>新的一岁也要继续闪闪发光！</p>
-            <p>祝你所有的愿望都能实现！</p>
             <p class="usagi">🎀 生日快乐 🎀</p>
+        </div>
+        
+        <!-- 新增的敏感心灵小版块 -->
+        <div class="sensitive-heart">
+            <div class="heart-icon">💖</div>
+            <h2>给敏感又美好的你</h2>
+            <p>我知道你有时会感到小小的忧伤，像Chiikawa里那些温柔的角色一样，有着细腻的情感。</p>
+            <p>但请记住，正是这份敏感让你成为了如此特别的人。你能感受到别人忽略的美好，能体会到更深的情感。</p>
+            <p>就像乌萨奇一样，看似小小的身体里藏着大大的能量和温柔～</p>
+            
+            <div class="hidden-message" id="hiddenMessage">
+                <p>当你感到低落时，记得：</p>
+                <ul>
+                    <li>你的感受都是合理的，不要否定自己</li>
+                    <li>世界上有很多人爱你、欣赏你</li>
+                    <li>像Chiikawa里的朋友们一样，你也会遇到理解你的人</li>
+                    <li>敏感是你的超能力，不是弱点</li>
+                </ul>
+                <p>愿新的一岁带给你更多勇气和安心感！</p>
+            </div>
+            
+            <button class="show-message-btn" id="showMessageBtn">点击查看特别祝福</button>
         </div>
         
         <div class="gif-container">
@@ -286,7 +484,50 @@
                 }, i * 100);
             }
         });
+        
+        // 音乐播放功能
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play();
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // 夜间模式切换
+        const nightModeBtn = document.getElementById('nightMode');
+        nightModeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('night');
+        });
+        
+        // 显示隐藏的祝福信息
+        const showMessageBtn = document.getElementById('showMessageBtn');
+        const hiddenMessage = document.getElementById('hiddenMessage');
+        
+        showMessageBtn.addEventListener('click', function() {
+            hiddenMessage.classList.toggle('show');
+            if (hiddenMessage.classList.contains('show')) {
+                showMessageBtn.textContent = '收起特别祝福';
+            } else {
+                showMessageBtn.textContent = '点击查看特别祝福';
+            }
+        });
+        
+        // 页面加载时的小动画
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#fff5f5';
+            }, 500);
+        });
     </script>
+
 
 
     

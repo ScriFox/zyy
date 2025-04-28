@@ -10,12 +10,6 @@
 
     
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>椰椰星诞祭</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Comic+Neue:wght@700&display=swap');
         
@@ -177,6 +171,38 @@
         .floating-usagi:nth-child(2) { right: 15%; top: 40%; }
         .floating-usagi:nth-child(3) { left: 30%; bottom: 20%; }
 
+        /* 新增音乐控制图标样式 */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* 新增温情表达模块样式 */
+        .warm-message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            margin: 40px auto;
+            width: 80%;
+            border-radius: 30px;
+            position: relative;
+            transform: rotate(2deg);
+        }
+
+        .warm-message::before {
+            content: "💕温情表达💕";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--main-color);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -184,6 +210,13 @@
     <img src="usagi-float1.png" class="floating-usagi">
     <img src="usagi-float2.png" class="floating-usagi">
     <img src="usagi-float3.png" class="floating-usagi">
+
+    <!-- 新增音乐控制图标 -->
+    <i id="music-control" class="fa-solid fa-volume-high"></i>
+    <audio id="background-music" loop>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+        你的浏览器不支持音频播放。
+    </audio>
 
     <div class="header-wrapper">
         <div class="title-box">
@@ -205,6 +238,14 @@
         <p>今天，在CKG48星梦剧院的星空下，我们见证了一个奇迹——</p>
         <p>来自Chiikawa星球的乌萨奇化身，正以<span class="highlight-nickname"></span>的身份</p>
         <p>在这个特别的日子里，绽放着双倍可爱的光芒！✨</p>
+    </div>
+
+    <!-- 新增温情表达模块 -->
+    <div class="warm-message">
+        <p>在这个充满爱与温暖的时刻，</p>
+        <p>希望你能感受到我们满满的祝福，</p>
+        <p>愿你的每一天都如繁星般闪耀，</p>
+        <p>永远被幸福环绕！💖</p>
     </div>
 
     <div class="usagi-traits">
@@ -276,10 +317,23 @@
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 2000);
             });
+
+            // 音乐控制
+            const musicControl = document.getElementById('music-control');
+            const backgroundMusic = document.getElementById('background-music');
+            musicControl.addEventListener('click', () => {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                    musicControl.classList.remove('fa-volume-xmark');
+                    musicControl.classList.add('fa-volume-high');
+                } else {
+                    backgroundMusic.pause();
+                    musicControl.classList.remove('fa-volume-high');
+                    musicControl.classList.add('fa-volume-xmark');
+                }
+            });
         });
     </script>
-</body>
-</html>
 
 
 

@@ -10,142 +10,532 @@
 
     
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咏烨生日快乐！</title>
     <style>
-        :root {
-            --main-color: #FFD700; /* 乌萨奇黄 */
-            --accent-1: #7ED957; /* 萌系绿 */
-            --accent-2: #FF69B4; /* 偶像粉 */
-            --accent-3: #00B4D8; /* 应援蓝 */
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            font-family: 'ZCOOL QingKe HuangYou', cursive;
+            text-align: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(#ffcce6 1px, transparent 1px);
+            background-size: 20px 20px;
+            transition: background-color 1s;
         }
-
-        /* 新增动态斜线边框 */
-        .module-border {
-            background: repeating-linear-gradient(45deg,
-                var(--accent-1) 0px, var(--accent-1) 15px,
-                var(--accent-2) 15px, var(--accent-2) 30px,
-                var(--accent-3) 30px, var(--accent-3) 45px);
-            padding: 5px;
-            border-radius: 20px;
-            animation: borderFlow 3s infinite linear;
-        }
-
-        /* 新增偶像应援特效 */
-        .idol-sparkle {
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
         }
-        .idol-sparkle::after {
+        
+        h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            color: #ff66b3;
+            font-size: 3em;
+            text-shadow: 3px 3px 0 #ffccf2;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        .birthday-text {
+            font-size: 1.5em;
+            color: #ff85c0;
+            margin-bottom: 30px;
+        }
+        
+        .chiikawa-character {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-image: url('https://i.imgur.com/JQJQJQJ.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .message {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+            border: 3px dashed #ffb6c1;
+            position: relative;
+        }
+        
+        .message:before {
             content: "✨";
             position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: linear-gradient(45deg, 
-                transparent 45%, 
-                rgba(255,255,255,0.8) 50%,
-                transparent 55%);
-            animation: sparkle 2s infinite;
+            top: -15px;
+            left: -15px;
+            font-size: 30px;
         }
-
-        /* 新增五图翻转设计 */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+        
+        .message:after {
+            content: "🎀";
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            font-size: 30px;
+        }
+        
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: #ff66b3;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float-up 10s linear infinite;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 25px;
+            width: 2px;
+            height: 30px;
+            background-color: #999;
+        }
+        
+        .balloon:nth-child(2n) {
+            background-color: #66b3ff;
+            left: 20%;
+            animation-delay: 2s;
+        }
+        
+        .balloon:nth-child(3n) {
+            background-color: #b3ff66;
+            left: 40%;
+            animation-delay: 4s;
+        }
+        
+        .balloon:nth-child(4n) {
+            background-color: #ffcc66;
+            left: 60%;
+            animation-delay: 6s;
+        }
+        
+        .balloon:nth-child(5n) {
+            background-color: #cc66ff;
+            left: 80%;
+            animation-delay: 8s;
+        }
+        
+        .gif-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
+            margin: 30px 0;
         }
-        .gallery-item {
-            width: 180px;
-            height: 250px;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
+        
+        .gif-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffb6c1;
+            transition: transform 0.3s;
         }
-        .gallery-item:hover {
-            transform: rotateY(180deg);
+        
+        .gif-container img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #ff85c0;
+            font-size: 1.2em;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .usagi {
+            font-size: 2em;
+            animation: spin 5s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .cake {
+            font-size: 3em;
+            display: inline-block;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.7;
+            animation: confetti-fall 5s linear infinite;
+            z-index: 1000;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* 新增的敏感心灵小版块样式 */
+        .sensitive-heart {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(200, 150, 255, 0.3);
+            border: 3px dotted #d4a5ff;
+            position: relative;
+            text-align: left;
+            transition: all 0.5s ease;
+        }
+        
+        .sensitive-heart:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(200, 150, 255, 0.4);
+        }
+        
+        .sensitive-heart h2 {
+            color: #b388ff;
+            font-family: 'Ma Shan Zheng', cursive;
+            margin-top: 0;
+            border-bottom: 2px dashed #d4a5ff;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sensitive-heart h2::before {
+            content: "💜";
+            margin-right: 10px;
+        }
+        
+        .sensitive-heart p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .sensitive-heart .heart-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        
+        /* 音乐播放按钮 */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff66b3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            background-color: #ff85c0;
+        }
+        
+        .music-btn.playing {
+            animation: pulse 1s infinite;
+        }
+        
+        /* 夜间模式切换 */
+        .night-mode {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #4a4a4a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .night-mode:hover {
+            transform: scale(1.1);
+        }
+        
+        body.night {
+            background-color: #2a2a3a;
+            color: #e0e0e0;
+        }
+        
+        body.night .message,
+        body.night .sensitive-heart {
+            background-color: rgba(60, 60, 80, 0.9);
+            color: #e0e0e0;
+        }
+        
+        body.night .sensitive-heart {
+            border-color: #7a5fff;
+        }
+        
+        body.night .sensitive-heart h2 {
+            color: #a388ff;
+        }
+        
+        body.night h1 {
+            color: #ff85c0;
+            text-shadow: 3px 3px 0 #6a3d8a;
+        }
+        
+        body.night .birthday-text,
+        body.night .footer {
+            color: #d4a5ff;
+        }
+        
+        /* 隐藏的祝福 */
+        .hidden-message {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 0 20px;
+            margin: 10px 0;
+        }
+        
+        .hidden-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .show-message-btn {
+            background-color: #d4a5ff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .show-message-btn:hover {
+            background-color: #b388ff;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <!-- ===== 动态Slogan区 ===== -->
-    <div class="dynamic-slogan">
-        <h1 id="slogan">✨蹦跳偶像乌萨椰降临人间✨</h1>
+    <div class="balloons">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
     </div>
-
-    <!-- ===== CKG48特别放送区 ===== -->
-    <div class="module-border idol-sparkle">
-        <h2>🎉CKG48星梦剧院特别放送🎉</h2>
-        <p>在银河系最闪亮的舞台上，诞生了奇迹般的双星存在——既是挥舞荧光棒就能引发星河震颤的超级偶像，又是抱着胡萝卜话筒唱出量子波动神曲的乌萨奇化身！</p>
-        <!-- 详细500+字文案（示例片段） -->
-        <p>当聚光灯亮起的瞬间，舞台地板开始量子颤动！只见椰椰酱以乌萨奇式兔耳跃动登场，马尾辫随着《超次元胡萝卜进行曲》的节奏甩出时空涟漪。第48次元观测员报告：该偶像的wink能量已达9000万兆焦耳，足以点亮整个秋叶原星系！此刻她正用「乌萨奇元气暴击」舞步重构宇宙弦理论，连后台的士大夫都变成星星眼应援团...[500+字持续输出萌力]</p>
-    </div>
-
-    <!-- ===== 新增温情模块 ===== -->
-    <div class="warm-module">
-        <h3>🎀给偶尔emo的超级偶像🎀</h3>
-        <p>当练习室的镜子蒙上雾气时，请记得：</p>
-        <!-- 诗意化500+字文案（示例片段） -->
-        <p>宇宙尘埃会落在最闪耀的星球上，正如汗水会沾湿最努力的舞鞋。那些被麦克风放大的喘息声，其实是成长蜕变的协奏曲。在48重平行宇宙中，总有一个世界的观众席永远为你亮着粉色的星光...[用比喻手法展开心灵抚慰]</p>
-    </div>
-
-    <!-- ===== 五图翻转画廊 ===== -->
-    <div class="gallery-grid">
-        <div class="gallery-item">...</div>
-        <!-- 5张图片动态展示 -->
-    </div>
-
-    <!-- ===== 三重萌点升级版 ===== -->
-    <div class="triple-moe">
-        <div class="moe-card">
-            <h4>🍄双重萌点暴击</h4>
-            <p>当乌萨奇的兔耳遇见偶像的双马尾——物理学不存在啦！经测算，椰椰酱的舞台存在会导致周边时空曲率改变：</p>
-            <!-- 100+字详细说明 -->
+    
+    <button class="music-btn" id="musicBtn">♪</button>
+    <button class="night-mode" id="nightMode">🌙</button>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- 你可以替换成你喜欢的音乐链接 -->
+    </audio>
+    
+    <div class="container">
+        <h1>咏烨生日快乐！</h1>
+        <div class="birthday-text">
+            <span class="cake">🎂</span> 祝世界上最可爱的咏烨生日快乐！ <span class="cake">🎂</span>
         </div>
-        <!-- 其他两个卡片同理 -->
+        
+        <div class="chiikawa-character">
+            <!-- 这里可以放乌萨奇的图片 -->
+            <img src="https://i.imgur.com/placeholder.png" alt="乌萨奇" style="width:100%;">
+        </div>
+        
+        <div class="message">
+            <p>亲爱的咏烨：</p>
+            <p>今天是属于你的特别日子！✨</p>
+            <p>愿你的生日充满欢笑、甜蜜和Chiikawa的可爱能量！</p>
+            <p>像乌萨奇一样永远保持纯真快乐的心～</p>
+            <p>新的一岁也要继续闪闪发光！</p>
+            <p class="usagi">🎀 生日快乐 🎀</p>
+        </div>
+        
+        <!-- 新增的敏感心灵小版块 -->
+        <div class="sensitive-heart">
+            <div class="heart-icon">💖</div>
+            <h2>给敏感又美好的你</h2>
+            <p>我知道你有时会感到小小的忧伤，像Chiikawa里那些温柔的角色一样，有着细腻的情感。</p>
+            <p>但请记住，正是这份敏感让你成为了如此特别的人。你能感受到别人忽略的美好，能体会到更深的情感。</p>
+            <p>就像乌萨奇一样，看似小小的身体里藏着大大的能量和温柔～</p>
+            
+            <div class="hidden-message" id="hiddenMessage">
+                <p>当你感到低落时，记得：</p>
+                <ul>
+                    <li>你的感受都是合理的，不要否定自己</li>
+                    <li>世界上有很多人爱你、欣赏你</li>
+                    <li>像Chiikawa里的朋友们一样，你也会遇到理解你的人</li>
+                    <li>敏感是你的超能力，不是弱点</li>
+                </ul>
+                <p>愿新的一岁带给你更多勇气和安心感！</p>
+            </div>
+            
+            <button class="show-message-btn" id="showMessageBtn">点击查看特别祝福</button>
+        </div>
+        
+        <div class="gif-container">
+            <!-- 这里可以放一些Chiikawa和乌萨奇的GIF -->
+            <img src="https://media.giphy.com/media/example1.gif" alt="Chiikawa可爱">
+            <img src="https://media.giphy.com/media/example2.gif" alt="乌萨奇跳舞">
+            <img src="https://media.giphy.com/media/example3.gif" alt="生日庆祝">
+            <img src="https://media.giphy.com/media/example4.gif" alt="Chiikawa派对">
+        </div>
+        
+        <div class="footer">
+            <p>特别为你制作的生日祝福网页 ❤</p>
+            <p>希望你喜欢这份小惊喜！</p>
+        </div>
     </div>
-
-    <!-- ===== 动态称呼系统 ===== -->
-    <div class="dynamic-title">
-        <span id="title">今日身份：银河系最甜胡萝卜</span>
-    </div>
+    
+    <script>
+        // 创建五彩纸屑效果
+        function createConfetti() {
+            const colors = ['#ff66b3', '#66b3ff', '#b3ff66', '#ffcc66', '#cc66ff'];
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        // 每隔一段时间创建新的五彩纸屑
+        setInterval(createConfetti, 300);
+        
+        // 点击页面任意处也会产生五彩纸屑
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 100);
+            }
+        });
+        
+        // 音乐播放功能
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play();
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // 夜间模式切换
+        const nightModeBtn = document.getElementById('nightMode');
+        nightModeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('night');
+        });
+        
+        // 显示隐藏的祝福信息
+        const showMessageBtn = document.getElementById('showMessageBtn');
+        const hiddenMessage = document.getElementById('hiddenMessage');
+        
+        showMessageBtn.addEventListener('click', function() {
+            hiddenMessage.classList.toggle('show');
+            if (hiddenMessage.classList.contains('show')) {
+                showMessageBtn.textContent = '收起特别祝福';
+            } else {
+                showMessageBtn.textContent = '点击查看特别祝福';
+            }
+        });
+        
+        // 页面加载时的小动画
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#fff5f5';
+            }, 500);
+        });
+    </script>
 </body>
-
-<script>
-    // 动态slogan库（15个示例）
-    const slogans = [
-        "✨乌萨能量全开！椰椰酱生日大作战✨",
-        "🎂48次元共同庆贺：兔耳偶像诞生祭🎂",
-        "🌟CKG48驻地球大使今日巡航中🌟",
-        "💫量子波动打call术发动预备！💫",
-        "🥕胡萝卜话筒已就位，声波准备扩散！🥕",
-        "🎀今天的舞台由乌萨椰大人主宰🎀",
-        "🚀偶像火箭第48号发射倒计时🚀",
-        "🌈虹色打call棒切换至过载模式🌈",
-        "🎤声压突破临界值，注意防护！🎤",
-        "🪐48重宇宙应援信号接收中🪐"
-    ];
-
-    // 动态称呼库（15个示例）
-    const titles = [
-        "闪耀の乌萨甜心", 
-        "胡萝卜歼灭者", 
-        "量子波动主唱",
-        "48次元穿梭姬",
-        "打call黑洞生成体",
-        "舞台时空扭曲者",
-        "元气β粒子发射器",
-        "萌力永动机原型机",
-        "应援波长协调者",
-        "荧光棒交响指挥官"
-    ];
-
-    // 每3秒更换文案
-    setInterval(() => {
-        document.getElementById('slogan').innerHTML = 
-            slogans[Math.floor(Math.random()*slogans.length)];
-        document.getElementById('title').innerHTML = 
-            "今日身份：" + titles[Math.floor(Math.random()*titles.length)];
-    }, 3000);
-</script>
+</html>
 
 
 

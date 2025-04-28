@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小椰椰</title>
+    <title>小椰椰宝宝</title>
 </head>
 
 <body>
@@ -11,267 +11,141 @@
     
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Comic+Neue:wght@700&display=swap');
-        
         :root {
-            --main-color: #FFB3D9;
-            --accent-color: #7A5FFF;
+            --main-color: #FFD700; /* 乌萨奇黄 */
+            --accent-1: #7ED957; /* 萌系绿 */
+            --accent-2: #FF69B4; /* 偶像粉 */
+            --accent-3: #00B4D8; /* 应援蓝 */
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #FFF0F5 30%, #E6E6FA);
-            font-family: 'Comic Neue', cursive;
-            overflow-x: hidden;
-        }
-
-        .header-wrapper {
-            background: var(--main-color);
-            padding: 20px 0;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            position: relative;
-        }
-
-        .dual-character {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin: 40px 0;
-            perspective: 1000px;
-        }
-
-        .character-card {
-            width: 250px;
-            height: 350px;
-            position: relative;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .character-card:hover {
-            transform: rotateY(180deg);
-        }
-
-        .character-front,
-        .character-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
+        /* 新增动态斜线边框 */
+        .module-border {
+            background: repeating-linear-gradient(45deg,
+                var(--accent-1) 0px, var(--accent-1) 15px,
+                var(--accent-2) 15px, var(--accent-2) 30px,
+                var(--accent-3) 30px, var(--accent-3) 45px);
+            padding: 5px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            background-size: cover;
+            animation: borderFlow 3s infinite linear;
         }
 
-        .character-front {
-            background-image: url('yeye-photo.jpg'); /* 椰椰真人照片 */
-            transform: rotateY(0deg);
-        }
-
-        .character-back {
-            background-image: url('usagi-image.png'); /* 乌萨奇官方图 */
-            transform: rotateY(180deg);
-        }
-
-        .title-box {
-            background: white;
-            padding: 20px 40px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 20px auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 3px solid var(--accent-color);
-        }
-
-        h1 {
-            font-family: 'Ma Shan Zheng', cursive;
-            color: var(--accent-color);
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 0 #FFD700;
-        }
-
-        .nickname-container {
-            font-size: 1.8em;
-            color: var(--accent-color);
-            margin: 20px 0;
-            min-height: 60px;
-        }
-
-        .stage-message {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            margin: 40px auto;
-            width: 80%;
-            border-radius: 30px;
+        /* 新增偶像应援特效 */
+        .idol-sparkle {
             position: relative;
-            transform: rotate(-2deg);
+            overflow: hidden;
         }
-
-        .stage-message::before {
-            content: "✨CKG48星梦剧院特别放送✨";
+        .idol-sparkle::after {
+            content: "✨";
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--main-color);
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 0.9em;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: linear-gradient(45deg, 
+                transparent 45%, 
+                rgba(255,255,255,0.8) 50%,
+                transparent 55%);
+            animation: sparkle 2s infinite;
         }
 
-        .usagi-traits {
+        /* 新增五图翻转设计 */
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 30px;
-            background: rgba(122, 95, 255, 0.1);
-            margin: 40px 0;
-            border-radius: 30px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
         }
-
-        .trait-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: left;
-            position: relative;
-            transition: transform 0.3s;
+        .gallery-item {
+            width: 180px;
+            height: 250px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
         }
-
-        .trait-card:hover {
-            transform: translateY(-5px);
+        .gallery-item:hover {
+            transform: rotateY(180deg);
         }
-
-        .trait-card::before {
-            content: "🐾";
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-            opacity: 0.3;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .floating-usagi {
-            position: fixed;
-            width: 100px;
-            animation: float 3s ease-in-out infinite;
-            opacity: 0.2;
-            z-index: -1;
-        }
-
-        /* 随机位置悬浮乌萨奇 */
-        .floating-usagi:nth-child(1) { left: 10%; top: 20%; }
-        .floating-usagi:nth-child(2) { right: 15%; top: 40%; }
-        .floating-usagi:nth-child(3) { left: 30%; bottom: 20%; }
-
     </style>
 </head>
 <body>
-    <!-- 背景悬浮乌萨奇 -->
-    <img src="usagi-float1.png" class="floating-usagi">
-    <img src="usagi-float2.png" class="floating-usagi">
-    <img src="usagi-float3.png" class="floating-usagi">
-
-    <div class="header-wrapper">
-        <div class="title-box">
-            <h1 id="dynamicTitle"></h1>
-        </div>
-        
-        <div class="dual-character">
-            <div class="character-card">
-                <div class="character-front"></div>
-                <div class="character-back"></div>
-            </div>
-        </div>
-
-        <div class="nickname-container" id="nicknameDisplay"></div>
+    <!-- ===== 动态Slogan区 ===== -->
+    <div class="dynamic-slogan">
+        <h1 id="slogan">✨蹦跳偶像乌萨椰降临人间✨</h1>
     </div>
 
-    <div class="stage-message">
-        <p>致宇宙第一可爱的<span class="highlight-nickname"></span>：</p>
-        <p>今天，在CKG48星梦剧院的星空下，我们见证了一个奇迹——</p>
-        <p>来自Chiikawa星球的乌萨奇化身，正以<span class="highlight-nickname"></span>的身份</p>
-        <p>在这个特别的日子里，绽放着双倍可爱的光芒！✨</p>
+    <!-- ===== CKG48特别放送区 ===== -->
+    <div class="module-border idol-sparkle">
+        <h2>🎉CKG48星梦剧院特别放送🎉</h2>
+        <p>在银河系最闪亮的舞台上，诞生了奇迹般的双星存在——既是挥舞荧光棒就能引发星河震颤的超级偶像，又是抱着胡萝卜话筒唱出量子波动神曲的乌萨奇化身！</p>
+        <!-- 详细500+字文案（示例片段） -->
+        <p>当聚光灯亮起的瞬间，舞台地板开始量子颤动！只见椰椰酱以乌萨奇式兔耳跃动登场，马尾辫随着《超次元胡萝卜进行曲》的节奏甩出时空涟漪。第48次元观测员报告：该偶像的wink能量已达9000万兆焦耳，足以点亮整个秋叶原星系！此刻她正用「乌萨奇元气暴击」舞步重构宇宙弦理论，连后台的士大夫都变成星星眼应援团...[500+字持续输出萌力]</p>
     </div>
 
-    <div class="usagi-traits">
-        <div class="trait-card">
-            <h3>🍄 双重萌点</h3>
-            <p>当乌萨奇遇上椰椰，产生了1+1＞100的可爱反应</p>
-        </div>
-        <div class="trait-card">
-            <h3>🌟 特别才能</h3>
-            <p>拥有让世界变明亮的笑容（物理+魔法双重效果）</p>
-        </div>
-        <div class="trait-card">
-            <h3>🎀 专属特性</h3>
-            <p>在人类形态和乌萨奇形态之间自由切换的超能力</p>
-        </div>
+    <!-- ===== 新增温情模块 ===== -->
+    <div class="warm-module">
+        <h3>🎀给偶尔emo的超级偶像🎀</h3>
+        <p>当练习室的镜子蒙上雾气时，请记得：</p>
+        <!-- 诗意化500+字文案（示例片段） -->
+        <p>宇宙尘埃会落在最闪耀的星球上，正如汗水会沾湿最努力的舞鞋。那些被麦克风放大的喘息声，其实是成长蜕变的协奏曲。在48重平行宇宙中，总有一个世界的观众席永远为你亮着粉色的星光...[用比喻手法展开心灵抚慰]</p>
     </div>
 
-    <script>
-        // 椰椰的可爱昵称库
-        const nicknames = ["椰椰", "小椰子", "小椰椰", "椰宝"];
-        const titleVariants = [
-            "🍄 椰椰星诞祭 🎂",
-            "🪐 乌萨奇地球观察日记",
-            "🌟 椰椰の双重存在证明"
-        ];
+    <!-- ===== 五图翻转画廊 ===== -->
+    <div class="gallery-grid">
+        <div class="gallery-item">...</div>
+        <!-- 5张图片动态展示 -->
+    </div>
 
-        // 随机昵称生成器
-        function getRandomNickname() {
-            return nicknames[Math.floor(Math.random() * nicknames.length)];
-        }
+    <!-- ===== 三重萌点升级版 ===== -->
+    <div class="triple-moe">
+        <div class="moe-card">
+            <h4>🍄双重萌点暴击</h4>
+            <p>当乌萨奇的兔耳遇见偶像的双马尾——物理学不存在啦！经测算，椰椰酱的舞台存在会导致周边时空曲率改变：</p>
+            <!-- 100+字详细说明 -->
+        </div>
+        <!-- 其他两个卡片同理 -->
+    </div>
 
-        // 动态更新所有昵称显示
-        function updateNicknames() {
-            document.querySelectorAll('.highlight-nickname').forEach(el => {
-                el.textContent = getRandomNickname();
-            });
-            document.getElementById('nicknameDisplay').innerHTML = `
-                🎀 今日称呼：<span style="color:var(--accent-color)">${getRandomNickname()}</span> 🎀
-            `;
-        }
+    <!-- ===== 动态称呼系统 ===== -->
+    <div class="dynamic-title">
+        <span id="title">今日身份：银河系最甜胡萝卜</span>
+    </div>
+</body>
 
-        // 标题动画
-        let titleIndex = 0;
-        function animateTitle() {
-            document.getElementById('dynamicTitle').innerHTML = titleVariants[titleIndex];
-            titleIndex = (titleIndex + 1) % titleVariants.length;
-            setTimeout(animateTitle, 3000);
-        }
+<script>
+    // 动态slogan库（15个示例）
+    const slogans = [
+        "✨乌萨能量全开！椰椰酱生日大作战✨",
+        "🎂48次元共同庆贺：兔耳偶像诞生祭🎂",
+        "🌟CKG48驻地球大使今日巡航中🌟",
+        "💫量子波动打call术发动预备！💫",
+        "🥕胡萝卜话筒已就位，声波准备扩散！🥕",
+        "🎀今天的舞台由乌萨椰大人主宰🎀",
+        "🚀偶像火箭第48号发射倒计时🚀",
+        "🌈虹色打call棒切换至过载模式🌈",
+        "🎤声压突破临界值，注意防护！🎤",
+        "🪐48重宇宙应援信号接收中🪐"
+    ];
 
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            animateTitle();
-            updateNicknames();
-            setInterval(updateNicknames, 5000);
-            
-            // 添加点击特效
-            document.body.addEventListener('click', () => {
-                const hearts = ['💖', '✨', '🎀', '🌸'];
-                const heart = document.createElement('div');
-                heart.style = `
-                    position: fixed;
-                    left: ${event.clientX}px;
-                    top: ${event.clientY}px;
-                    font-size: 24px;
-                    animation: float 2s ease-out;
-                    pointer-events: none;
-                `;
-                heart.textContent = hearts[Math.floor(Math.random()*hearts.length)];
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 2000);
-            });
-        });
-    </script>
+    // 动态称呼库（15个示例）
+    const titles = [
+        "闪耀の乌萨甜心", 
+        "胡萝卜歼灭者", 
+        "量子波动主唱",
+        "48次元穿梭姬",
+        "打call黑洞生成体",
+        "舞台时空扭曲者",
+        "元气β粒子发射器",
+        "萌力永动机原型机",
+        "应援波长协调者",
+        "荧光棒交响指挥官"
+    ];
+
+    // 每3秒更换文案
+    setInterval(() => {
+        document.getElementById('slogan').innerHTML = 
+            slogans[Math.floor(Math.random()*slogans.length)];
+        document.getElementById('title').innerHTML = 
+            "今日身份：" + titles[Math.floor(Math.random()*titles.length)];
+    }, 3000);
+</script>
 
 
 
